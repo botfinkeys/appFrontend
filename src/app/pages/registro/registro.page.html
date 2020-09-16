@@ -1,0 +1,62 @@
+<app-header title="Activation compte"></app-header>
+
+<ion-content>
+    <h3 class="ion-text-center">Activation du compte</h3>
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegister()" novalidate>
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+          
+            <ion-item>
+                <ion-label position="floating">Numero de compte</ion-label>
+                <ion-input  inputmode="text" required maxlength="9" minlength="9" formControlName="numCompte"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.numCompte">
+                  <ng-container *ngIf="numCompte.hasError(error.type) && (numCompte.dirty || numCompte.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+              <ion-item>
+                <ion-label position="floating">Numero de telephone</ion-label>
+                <ion-input inputmode="number"  pattern="00212[0-9]{9}$" required maxlength="14" minlength="14"   formControlName="telephone"></ion-input>
+              </ion-item>
+              <div *ngFor="let error of errorMessages.telephone">
+                  <ng-container *ngIf="telephone.hasError(error.type) && (telephone.dirty || telephone.touched)">
+                    <small class="error-message">{{error.message}}</small>
+                  </ng-container>
+                </div>
+
+            <!-- <ion-item>
+                <ion-label position="floating">Password: <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input required type="password" name="password" [(ngModel)]="password"></ion-input>
+            </ion-item>-->
+
+
+            <div class="ion-padding">
+                <ion-button color="success" (click)="showHideAutoLoader()" expand="block" type="submit" class="ion-no-margin" [disabled]="!registrationForm.valid" >
+                    <ion-icon name="person-add" slot="icon-only"></ion-icon>
+                    Activer compte
+                </ion-button>
+            </div>
+            <div class="ion-padding">
+                <ion-button color="secondary" expand="block" class="ion-no-margin" (click)="vaciar()">
+                    <ion-icon name="refresh-circle" slot="icon-only"></ion-icon>
+                    Reset
+                </ion-button>
+            </div>
+        </ion-list>
+    </form>
+    <div class="ion-text-center">
+        <ion-label position="floating">
+            <ion-text color="danger">*</ion-text> les champs obligatoires
+        </ion-label>
+    </div>
+    <ion-item-divider></ion-item-divider>
+
+    <div class="ion-text-center ion-padding">
+        <h4>vous avez déjà un compte?</h4>
+        <ion-button color="tertiary" expand="block" class="ion-no-margin" routerLink="/login">
+            <ion-icon name="log-in"  slot="icon-only"></ion-icon>
+            Se connecter
+        </ion-button>
+    </div>
+</ion-content>

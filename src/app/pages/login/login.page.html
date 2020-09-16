@@ -1,0 +1,77 @@
+<app-header title="Login"></app-header>
+
+<ion-content *ngIf="!isLogged">
+    <h3 class="ion-text-center">Remplir le formulaire</h3>
+    <form  [formGroup]="registrationForm"  (ngSubmit)="onLogin()" novalidate>
+            <ion-list>
+                <ion-item>
+                    <ion-label position="floating">Numero de compte</ion-label>
+                    <ion-input  inputmode="text" required maxlength="9" minlength="9" formControlName="numCompte"></ion-input>
+                  </ion-item>
+                  <div *ngFor="let error of errorMessages.numCompte">
+                      <ng-container *ngIf="numCompte.hasError(error.type) && (numCompte.dirty || numCompte.touched)">
+                        <small class="error-message">{{error.message}}</small>
+                      </ng-container>
+                    </div>
+                  <ion-item>
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input inputmode="number" style="-webkit-text-security:disc;" ng-model="loginData.pincode" pattern="[0-9]{6}$" required maxlength="6" minlength="6"   formControlName="password"></ion-input>
+                  </ion-item>
+                  <div *ngFor="let error of errorMessages.password">
+                      <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+                        <small class="error-message">{{error.message}}</small>
+                      </ng-container>
+                    </div>
+                    <ion-item>
+                        <ion-label>Restez connecté</ion-label>
+                        <ion-toggle slot="end"   (ionChange)="notify()" formControlName="kiwi" color="success" checked></ion-toggle>
+                      </ion-item>
+                    <div class="ion-padding">
+                <ion-button color="success" (click)="showHideAutoLoader()" expand="block" type="submit" class="ion-no-margin" [disabled]="!registrationForm.valid"  >
+                    <ion-icon name="log-in" slot="icon-only"></ion-icon>
+                    Connexion
+                </ion-button>
+            </div>
+
+                <div class="ion-padding">
+                    <ion-button color="success" expand="block" class="ion-no-margin"  (click)="showFingeerprintAuthentication()" [disabled]="!biometrie" >
+                    <ion-icon name="log-in" slot="icon-only"></ion-icon>
+                    Authentification biometric 
+                </ion-button>
+               
+            </div>
+            <div class="ion-padding">
+                <ion-button color="secondary" expand="block" class="ion-no-margin" (click)="vaciar()">
+                    <ion-icon name="refresh-circle" slot="icon-only"></ion-icon>
+                    Reset
+                </ion-button>
+            </div>
+        </ion-list>
+    </form>
+    <div class="ion-text-center">
+        <ion-label position="floating">
+            <ion-text color="danger">*</ion-text> champs obligatoires
+        </ion-label>
+    </div>
+    <ion-item-divider></ion-item-divider>
+
+    <div class="ion-text-center ion-padding">
+        <h4>Vous n'avez pas activer votre compte?</h4>
+        <ion-button color="tertiary" expand="block" class="ion-no-margin" routerLink="/registro">
+            <ion-icon name="person-add"  slot="icon-only"></ion-icon>
+            Activation du compte
+        </ion-button>
+    </div>
+</ion-content>
+<!--
+<ion-content *ngIf="isLogged">
+    <div class="ion-text-center ion-margin-top ion-padding">
+        <ion-text color="primary"><h2>Vous êtes déjà connecté
+        </h2></ion-text>
+        <ion-item-divider></ion-item-divider>
+        <ion-button color="tertiary" expand="block" class="ion-no-margin" (click)="logOut()">
+            <ion-icon name="log-out"  slot="icon-only"></ion-icon>
+           se deconnecter
+        </ion-button>
+    </div>
+</ion-content> -->

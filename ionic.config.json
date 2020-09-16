@@ -1,0 +1,7 @@
+{
+  "name": "tutorialIonicJwt",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
